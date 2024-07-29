@@ -1,23 +1,28 @@
 package com.arenema.codingtest.controller;
 
-import com.arenema.codingtest.model.RatesWrapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.arenema.codingtest.model.RateVO;
+import com.arenema.codingtest.service.RateService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/fx")
 public class ForexController {
+
+    @Autowired
+    private RateService rateService;
+
     @GetMapping("/{targetCurrency}")
-    public List<RatesWrapper> getTimeseriesRatesFromBaseCurrency(@PathVariable("targetCurrency") final String targetCurrency) {
-        return List.of(RatesWrapper.builder().build());
+    public List<RateVO> getTimeseriesRatesFromBaseCurrency(@RequestParam(value = "baseCurrency", required = false) final String baseCurrency,
+                                                           @PathVariable(value = "targetCurrency", required = true) final String targetCurrency) {
+        return rateService.getLast3DayRatesForBaseCurrency(StringUtils.trimToEmpty(baseCurrency), StringUtils.trimToEmpty(targetCurrency));
     }
 
     @GetMapping
-    public RatesWrapper getLatestRatesFromBaseCurrency(@PathVariable("targetCurrency") final String targetCurrency) {
-        return RatesWrapper.builder().build();
+    public List<RateVO> getLatestRatesFromBaseCurrency(@RequestParam(value = "baseCurrency", required = false) final String baseCurrency) {
+        return rateService.getLatestRatesForBaseCurrency(StringUtils.trimToEmpty(baseCurrency));
     }
 }

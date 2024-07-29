@@ -61,6 +61,11 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.15.0</version>
+		</dependency>
 	</dependencies>
 	<pluginRepositories>
 		<pluginRepository>

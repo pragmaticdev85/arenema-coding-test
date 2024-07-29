@@ -1,8 +1,8 @@
 CREATE TABLE rate (
     id INT not null primary key auto_increment,
-    baseCurrencyCode CHAR(3) not null,
-    targetCurrencyCode CHAR(3) not null,
-    baseCurrencyValue DOUBLE(16,2) not null,
-    targetCurrencyValue DOUBLE(16, 2) not null,
-    revisionDate DATE not null
+    base_currency_code CHAR(3) not null,
+    target_currency_code CHAR(3) not null,
+    base_currency_value DOUBLE(16,2) not null,
+    target_currency_value DOUBLE(16, 2) not null,
+    revision_date DATE not null
 );
