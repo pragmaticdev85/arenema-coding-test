@@ -24,6 +24,7 @@ public class RateEntity {
     public RateVO toVO() {
         return RateVO.builder()
                 .baseCurrencyCode(baseCurrencyCode)
+                .targetCurrencyCode(targetCurrencyCode)
                 .date(STANDARD_DATE_FORMAT.format(revisionDate))
                 .conversionRatio(String.valueOf(targetCurrencyValue / baseCurrencyValue))
                 .build();
