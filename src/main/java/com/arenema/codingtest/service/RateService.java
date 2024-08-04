@@ -2,9 +2,11 @@ package com.arenema.codingtest.service;
 
 import com.arenema.codingtest.model.RateVO;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Set;
 
 public interface RateService {
-    List<RateVO> getLatestRatesForBaseCurrency(final String baseCurrency);
-    List<RateVO> getLast3DayRatesForBaseCurrency(final String baseCurrency, final String targetCurrency);
+    Set<RateVO> getLatestRatesForBaseCurrency(final String baseCurrency) throws URISyntaxException, IOException, InterruptedException;
+    Set<RateVO> getLast3DayRatesForBaseCurrency(final String baseCurrency, final String targetCurrency) throws URISyntaxException, IOException, InterruptedException;
 }

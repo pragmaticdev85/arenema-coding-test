@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface RateRepository extends CrudRepository<RateEntity, Integer> {
-    List<RateEntity> findByBaseCurrencyCodeAndRevisionDate(final String baseCurrencyCode, final Date revisionDate);
-    List<RateEntity> findByBaseCurrencyCodeAndTargetCurrencyCode(
+    Set<RateEntity> findByBaseCurrencyCodeAndRevisionDate(final String baseCurrencyCode, final Date revisionDate);
+    Set<RateEntity> findByBaseCurrencyCodeAndTargetCurrencyCode(
             final String baseCurrencyCode, final String targetCurrencyCode);
 
     RateEntity findTopByOrderByRevisionDate();

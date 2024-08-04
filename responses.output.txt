@@ -1,0 +1,221 @@
+shnmkhk@shnmkhk:~/ws/arenema-coding-test$ http :8080/fx/JPY
+HTTP/1.1 200 
+Connection: keep-alive
+Content-Type: application/json
+Date: Sun, 04 Aug 2024 01:46:56 GMT
+Keep-Alive: timeout=60
+Transfer-Encoding: chunked
+
+[
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "148.93",
+        "date": "2024-08-04",
+        "targetCurrencyCode": "JPY"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "148.93",
+        "date": "2024-08-03",
+        "targetCurrencyCode": "JPY"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "148.93",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "JPY"
+    }
+]
+
+
+
+
+HTTP/1.1 200 
+Connection: keep-alive
+Content-Type: application/json
+Date: Sun, 04 Aug 2024 01:47:18 GMT
+Keep-Alive: timeout=60
+Transfer-Encoding: chunked
+
+[
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "4.59",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "RON"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "1365.73",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "KRW"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "10.69",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "SEK"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "33.17",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "TRY"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "3.96",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "PLN"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "83.74",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "INR"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "23.32",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "CZK"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "5.77",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "BRL"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "18.19",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "ZAR"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "7.21",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "CNY"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "148.93",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "JPY"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "16210.0",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "IDR"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "3.8",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "ILS"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "1.33",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "SGD"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "0.87",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "CHF"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "18.99",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "MXN"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "58.04",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "PHP"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "1.68",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "NZD"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "6.89",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "DKK"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "1.53",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "AUD"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "366.16",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "HUF"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "1.81",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "BGN"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "4.5",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "MYR"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "0.92",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "EUR"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "35.34",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "THB"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "1.39",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "CAD"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "7.81",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "HKD"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "138.9",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "ISK"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "0.78",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "GBP"
+    },
+    {
+        "baseCurrencyCode": "USD",
+        "conversionRatio": "11.01",
+        "date": "2024-08-02",
+        "targetCurrencyCode": "NOK"
+    }
+]
