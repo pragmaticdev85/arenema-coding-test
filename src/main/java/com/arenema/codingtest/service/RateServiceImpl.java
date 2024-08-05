@@ -20,29 +20,35 @@ import java.net.http.HttpResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
 public class RateServiceImpl implements RateService {
 
-
     public static final double BASE_CURRENCY_VALUE = 1.0;
+
     @Value("${default.base.currency.code}")
     private String defaultBaseCurrencyCode;
 
     @Value("${maximum.results.when.both.base.n.target.are.given:3}")
     private int maxResultsWhenBothCodesAreGiven;
 
-    @Autowired
     private RateRepository rateRepository;
 
-    @Autowired
     private Gson gson;
 
     private static final DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
+
+    @Autowired
+    public RateServiceImpl(RateRepository rateRepository, Gson gson) {
+        this.rateRepository = rateRepository;
+        this.gson = gson;
+    }
 
     private String loadFromRemote(final String dateStr, final String baseCurrencyCode) throws IOException, InterruptedException, URISyntaxException {
         HttpRequest todayData = HttpRequest.newBuilder()
@@ -58,36 +64,32 @@ public class RateServiceImpl implements RateService {
     }
 
     public void conditionalDataRefreshForLast3Days() throws URISyntaxException, IOException, InterruptedException {
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-
-        final Set<RateEntity> consolidatedList = new HashSet<>();
-        consolidatedList.addAll(refreshOnSpecificDate(calendar.getTime()));
-        calendar.add(Calendar.DAY_OF_YEAR, -1);
-        consolidatedList.addAll(refreshOnSpecificDate(calendar.getTime()));
-        calendar.add(Calendar.DAY_OF_YEAR, -1);
-        consolidatedList.addAll(refreshOnSpecificDate(calendar.getTime()));
-        rateRepository.saveAll(consolidatedList);
+        Instant now = Instant.now();
+        Instant yesterday = now.minus(1, ChronoUnit.DAYS);
+        Instant dayBeforeYesterday = now.minus(2, ChronoUnit.DAYS);
+        final Set<RateEntity> totalSet = Stream.of(
+                        refreshOnSpecificDate(now.toEpochMilli()),
+                        refreshOnSpecificDate(yesterday.toEpochMilli()),
+                        refreshOnSpecificDate(dayBeforeYesterday.toEpochMilli())
+                )
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
+        rateRepository.saveAll(totalSet);
     }
 
-    private Set<RateEntity> refreshOnSpecificDate(Date specificDate) throws IOException, InterruptedException, URISyntaxException {
+    private RateEntity buildFrom(final ExternalResponseVO responseObj, final String key, final Double value, final Date specificDate) {
+        return new RateEntity((int) (Math.random() * 1_000_000),
+                responseObj.getBase(), key, BASE_CURRENCY_VALUE, value, specificDate);
+    }
+
+    private Set<RateEntity> refreshOnSpecificDate(long epochTimeInMillis) throws IOException, InterruptedException, URISyntaxException {
+        final Date specificDate = new Date(epochTimeInMillis);
         final Set<RateEntity> results = rateRepository.findByBaseCurrencyCodeAndRevisionDate(defaultBaseCurrencyCode, specificDate);
         if (Objects.isNull(results) || results.isEmpty()) {
             final String responseStr = loadFromRemote(df.format(specificDate), defaultBaseCurrencyCode);
             if (StringUtils.isNotBlank(responseStr)) {
                 ExternalResponseVO responseObj = gson.fromJson(responseStr, ExternalResponseVO.class);
-                Set<RateEntity> set = new HashSet<>();
-                if (responseObj.getRates().size() > 0) {
-                    for (Map.Entry<String, Double> stringDoubleEntry : responseObj.getRates().entrySet()) {
-                        set.add(new RateEntity((int) (Math.random() * 1_000_000),
-                                responseObj.getBase(), stringDoubleEntry.getKey(), BASE_CURRENCY_VALUE, stringDoubleEntry.getValue(), specificDate));
-
-                    }
-                    return set;
-                }
+                return responseObj.getRates().entrySet().stream().map(o -> buildFrom(responseObj, o.getKey(), o.getValue(), specificDate)).collect(Collectors.toSet());
             }
         }
         return Collections.emptySet();
@@ -98,7 +100,7 @@ public class RateServiceImpl implements RateService {
         Set<RateEntity> rateEntities = null;
         conditionalDataRefreshForLast3Days();
         if (Objects.isNull(maxDate) || ((rateEntities = rateRepository.findByBaseCurrencyCodeAndRevisionDate(
-                    StringUtils.defaultIfBlank(baseCurrency, defaultBaseCurrencyCode), maxDate) ) != null && !rateEntities.isEmpty())){
+                    StringUtils.defaultIfBlank(baseCurrency, defaultBaseCurrencyCode), maxDate) ) != null)){
             return Objects.nonNull(rateEntities) ? rateEntities.stream().map(RateEntity::toVO).collect(Collectors.toSet()) : Collections.emptySet();
         }
         return Collections.emptySet();

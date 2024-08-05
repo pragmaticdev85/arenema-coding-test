@@ -13,8 +13,13 @@ import java.util.Set;
 @RequestMapping("/fx")
 public class ForexController {
 
-    @Autowired
+
     private RateService rateService;
+
+    @Autowired
+    public ForexController(RateService rateService) {
+        this.rateService = rateService;
+    }
 
     @GetMapping("/{targetCurrency}")
     public Set<RateVO> getTimeseriesRatesFromBaseCurrency(@RequestParam(value = "baseCurrency", required = false) final String baseCurrency,
