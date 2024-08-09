@@ -1,0 +1,2 @@
+use fxdb;
+show tables;

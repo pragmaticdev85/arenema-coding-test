@@ -32,22 +32,24 @@ public class RateServiceImpl implements RateService {
 
     public static final double BASE_CURRENCY_VALUE = 1.0;
 
-    @Value("${default.base.currency.code}")
     private String defaultBaseCurrencyCode;
 
-    @Value("${maximum.results.when.both.base.n.target.are.given:3}")
     private int maxResultsWhenBothCodesAreGiven;
 
     private RateRepository rateRepository;
 
-    private Gson gson;
+    private Gson gson = new Gson();
 
     private static final DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
 
+    RateServiceImpl(){}
+
     @Autowired
-    public RateServiceImpl(RateRepository rateRepository, Gson gson) {
+    public RateServiceImpl(RateRepository rateRepository, @Value("${default.base.currency.code}") String defaultBaseCurrencyCode,
+            @Value("${maximum.results.when.both.base.n.target.are.given:3}") int maxResultsWhenBothCodesAreGiven) {
+        this.defaultBaseCurrencyCode = defaultBaseCurrencyCode;
+        this.maxResultsWhenBothCodesAreGiven = maxResultsWhenBothCodesAreGiven;
         this.rateRepository = rateRepository;
-        this.gson = gson;
     }
 
     private String loadFromRemote(final String dateStr, final String baseCurrencyCode) throws IOException, InterruptedException, URISyntaxException {
