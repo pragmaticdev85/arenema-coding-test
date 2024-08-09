@@ -8,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @DataJpaTest
 @TestPropertySource("classpath:application-test.properties")
@@ -28,7 +30,10 @@ public class RateRepositoryTest {
         Assertions.assertThat(rateEntity.getId()).isGreaterThan(0);
     }
 
+    @Test
     public void findByBaseCurrencyCodeAndRevisionDateTest(){
-        // rateRepository.findByBaseCurrencyCodeAndTargetCurrencyCode();
+        final Set<RateEntity> rateEeRateEntityList =
+                rateRepository.findByBaseCurrencyCodeAndTargetCurrencyCode("USD", "EUR");
+        Assertions.assertThat(rateEeRateEntityList.size()).isGreaterThan(0);
     }
 }
