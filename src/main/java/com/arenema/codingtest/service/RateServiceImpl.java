@@ -109,6 +109,7 @@ public class RateServiceImpl implements RateService {
         conditionalDataRefreshForLast3Days();
         Set<RateEntity> rateEntities = rateRepository.findByBaseCurrencyCodeAndTargetCurrencyCode(
                 StringUtils.defaultIfBlank(baseCurrency, defaultBaseCurrencyCode), targetCurrency);
-        return rateEntities.stream().map(RateEntity::toVO).limit(maxResultsWhenBothCodesAreGiven).collect(Collectors.toSet());
+        return rateEntities.stream().sorted(Comparator.comparing(RateEntity::getRevisionDate).reversed()).map(RateEntity::toVO)
+                .limit(maxResultsWhenBothCodesAreGiven).collect(Collectors.toSet());
     }
 }

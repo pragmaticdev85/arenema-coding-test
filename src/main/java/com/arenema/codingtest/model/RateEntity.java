@@ -5,27 +5,37 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"baseCurrencyCode", "targetCurrencyCode", "revisionDate"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"base_currency_code", "target_currency_code", "revision_date"})})
 @Entity(name = "rate")
 @Data
+@Builder
 @AllArgsConstructor
-public class RateEntity {
+public class RateEntity implements Serializable {
     private static final DateFormat STANDARD_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     @Id
+    @SequenceGenerator(name="Event_Seq", sequenceName="Event_Seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Event_Seq")
     private Integer id;
+    @Column(name = "base_currency_code")
     private String baseCurrencyCode;
+    @Column(name = "target_currency_code")
     private String targetCurrencyCode;
+    @Column(name = "base_currency_value")
     private double baseCurrencyValue;
+    @Column(name = "target_currency_value")
     private double targetCurrencyValue;
     @Temporal(TemporalType.DATE)
+    @Column(name = "revision_date")
     private Date revisionDate;
 
-    public RateEntity(){}
+    public RateEntity() {
+    }
 
     public RateVO toVO() {
         return RateVO.builder()
