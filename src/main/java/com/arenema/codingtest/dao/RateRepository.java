@@ -19,6 +19,6 @@ public interface RateRepository extends CrudRepository<RateEntity, Integer> {
 
     default Date findMaxRevisionDate() {
         RateEntity top = findTopByOrderByRevisionDate();
-        return top != null ? top.getRevisionDate() : null;
+        return top != null ? top.getRevisionDate() : new Date(System.currentTimeMillis());
     }
 }
